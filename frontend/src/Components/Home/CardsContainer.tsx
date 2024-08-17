@@ -1,45 +1,27 @@
 import Card from "../Ui/Card";
+import ErrorComponent from "../Ui/Error";
 
-const CardsContainer = () => {
-  const helpTopics = [
-    {
-      title: "Branches",
-      description:
-        "Abstract Branches lets you manage, version, and document your designs in one place.",
-    },
-    {
-      title: "Manage your account",
-      description:
-        "Configure your account settings, such as your email, profile details, and password.",
-    },
-    {
-      title: "Manage organizations, teams, and projects",
-      description:
-        "Use Abstract organizations, teams, and projects to organize your people and your work.",
-    },
-    {
-      title: "Manage billing",
-      description: "Change subscriptions and payment details.",
-    },
-    {
-      title: "Authenticate to Abstract",
-      description:
-        "Set up and configure SSO, SCIM, and Just-in-Time provisioning.",
-    },
-    { title: "Abstract support", description: "Get in touch with a human." },
-  ];
+type PropTypes = {
+  cards: { title: string; description: string }[];
+  isError: null | string;
+};
 
+const CardsContainer = ({ cards, isError }: PropTypes) => {
   return (
-    <div className="flex justify-center  p-16 ">
-      <div className="grid grid-cols-2 gap-12">
-        {helpTopics.map((topic, index) => (
-          <Card
-            title={topic.title}
-            key={index}
-            description={topic.description}
-          />
-        ))}
-      </div>
+    <div className="flex flex-1 justify-center  p-16 ">
+      {isError ? (
+        <ErrorComponent message={isError} />
+      ) : (
+        <div className="grid sm:grid-cols-2 gap-12">
+          {cards.map((topic, index) => (
+            <Card
+              title={topic.title}
+              key={index}
+              description={topic.description}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
