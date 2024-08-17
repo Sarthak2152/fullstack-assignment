@@ -23,10 +23,10 @@ export const getAllCards = async (req: Request, res: Response) => {
 
 export const getCardByTitle = async (req: Request, res: Response) => {
   try {
-    const title = req.params.title;
+    const { title } = req.params;
     const card = await Card.find({ title: { $regex: new RegExp(title, "i") } });
-    if (!card) {
-      res.status(404).json({ message: "Card not found" });
+    if (!card.length) {
+      res.status(404).json({ message: "No cards found with given query" });
     } else {
       res.json(card);
     }

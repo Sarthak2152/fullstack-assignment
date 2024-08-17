@@ -2,11 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import cardRoutes from "./routes/Card.router";
 import { connectDB } from "./config/db";
+import cors from "cors";
 dotenv.config({ path: ".env.local" });
 
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 // Routes
